@@ -36,16 +36,26 @@ func main() {
 		firstDigit := ""
 		secondDigit := ""
 
-		// Find each number
-		for _, char := range code {
+		// Find each character
+		for index, char := range code {
 			char := string(char)
+			number := ""
 
+			// Check if char is a spelled number
+			number = checkForSpelledNumber(code, index)
+
+			// Check if char is a number
 			if charIsNumber(char) {
-				if firstDigit == "" {
-					firstDigit = char
-				}
-				secondDigit = char
+				number = char
 			}
+
+			if number != "" {
+				if firstDigit == "" {
+					firstDigit = number
+				}
+				secondDigit = number
+			}
+
 		}
 
 		// Combine the digits as strings
@@ -72,35 +82,75 @@ func charIsNumber(char string) bool {
 	return false
 }
 
-// func checkForSpelledNumber(code string) bool {
-// 	if char == "o" {
+func checkForSpelledNumber(code string, index int) string {
+	number := ""
 
-// 	}
+	// Three letter numbers
+	if isOutOfBounds(code, index, 3) {
+		return ""
+	}
+	// Check for 'one'
+	if code[index] == 'o' && code[index+1] == 'n' && code[index+2] == 'e' {
+		number = "1"
+	}
+	// Check for 'two'
+	if code[index] == 't' && code[index+1] == 'w' && code[index+2] == 'o' {
+		number = "2"
+	}
+	// Check for 'six'
+	if code[index] == 's' && code[index+1] == 'i' && code[index+2] == 'x' {
+		number = "6"
+	}
 
-// 	// Check for 'two', 'three'
-// 	if char == "t" {
+	if number != "" {
+		return number
+	}
 
-// 	}
+	// Four letter numbers
+	if isOutOfBounds(code, index, 4) {
+		return ""
+	}
+	// Check for 'four'
+	if code[index] == 'f' && code[index+1] == 'o' && code[index+2] == 'u' && code[index+3] == 'r' {
+		number = "4"
+	}
 
-// 	// Check for 'four', 'five'
-// 	if char == "f" {
+	// Check for 'five'
+	if code[index] == 'f' && code[index+1] == 'i' && code[index+2] == 'v' && code[index+3] == 'e' {
+		number = "5"
+	}
+	// Check for 'nine'
+	if code[index] == 'n' && code[index+1] == 'i' && code[index+2] == 'n' && code[index+3] == 'e' {
+		number = "9"
+	}
 
-// 	}
+	if number != "" {
+		return number
+	}
 
-// 	// Check for 'six', 'seven'
-// 	if char == "s" {
+	// Five letter numbers
+	if isOutOfBounds(code, index, 5) {
+		return ""
+	}
 
-// 	}
+	// Check for 'three'
+	if code[index] == 't' && code[index+1] == 'h' && code[index+2] == 'r' && code[index+3] == 'e' && code[index+4] == 'e' {
+		number = "3"
+	}
 
-// 	// Check for 'eight'
-// 	if char == "e" {
+	// Check for 'seven'
+	if code[index] == 's' && code[index+1] == 'e' && code[index+2] == 'v' && code[index+3] == 'e' && code[index+4] == 'n' {
+		number = "7"
+	}
 
-// 	}
+	// Check for 'eight'
+	if code[index] == 'e' && code[index+1] == 'i' && code[index+2] == 'g' && code[index+3] == 'h' && code[index+4] == 't' {
+		number = "8"
+	}
 
-// 	// Check for 'nine'
-// 	if char == "n" {
+	return number
+}
 
-// 	}
-
-// 	return false
-// }
+func isOutOfBounds(code string, index, lengthOfWord int) bool {
+	return index+lengthOfWord > len(code)
+}
