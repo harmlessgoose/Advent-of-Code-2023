@@ -20,14 +20,21 @@ func main() {
         log.Fatal(err)
     }
 
-	for scanner.Scan() {
-        fmt.Println(scanner.Text())
-    }
-
+	var codes []string
 
 	// Put each line into an array
+	for scanner.Scan() {
+		codes = append(codes, scanner.Text())
+    }
 
 	// Loop through array
+	for i, code := range codes {
+		fmt.Println(i, code)
+	}
+
+
+
+
 
 	// From the front, find the first number
 
