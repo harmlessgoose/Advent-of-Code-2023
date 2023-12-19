@@ -36,28 +36,19 @@ func main() {
 		firstDigit := ""
 		secondDigit := ""
 
-		// From the front, find the first number
+		// Find each number
 		for _, char := range code {
 			char := string(char)
 
-			if isNumber(char) {
-				firstDigit = char
-				break
-			}
-		}
-
-		// From the back, find the second number
-
-		for i := len(code) - 1; i >= 0; i-- {
-			char := string(code[i])
-			if isNumber(char) {
+			if charIsNumber(char) {
+				if firstDigit == "" {
+					firstDigit = char
+				}
 				secondDigit = char
-				break
 			}
 		}
 
 		// Combine the digits as strings
-
 		number := firstDigit + secondDigit
 
 		// Cast to int
@@ -73,10 +64,43 @@ func main() {
 	fmt.Printf("Total: %d\n", total)
 }
 
-func isNumber(char string) bool {
+func charIsNumber(char string) bool {
 	if char == "0" || char == "1" || char == "2" || char == "3" || char == "4" || char == "5" || char == "6" || char == "7" || char == "8" || char == "9" {
 		return true
 	}
 
 	return false
 }
+
+// func checkForSpelledNumber(code string) bool {
+// 	if char == "o" {
+
+// 	}
+
+// 	// Check for 'two', 'three'
+// 	if char == "t" {
+
+// 	}
+
+// 	// Check for 'four', 'five'
+// 	if char == "f" {
+
+// 	}
+
+// 	// Check for 'six', 'seven'
+// 	if char == "s" {
+
+// 	}
+
+// 	// Check for 'eight'
+// 	if char == "e" {
+
+// 	}
+
+// 	// Check for 'nine'
+// 	if char == "n" {
+
+// 	}
+
+// 	return false
+// }
