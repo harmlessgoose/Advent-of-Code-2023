@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -30,7 +31,10 @@ func main() {
 	// Loop through array
 	for _, game := range games {
 
-		fmt.Println(game)
+		// Split into subgames
+		subGame := strings.Split(game, ";")
+
+		fmt.Println(subGame[0])
 
 		// For each line, scan for each word
 
