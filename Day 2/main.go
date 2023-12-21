@@ -47,15 +47,15 @@ func main() {
 		// For each subgame, extract each colour
 		for _, subgame := range subGames {
 
-			red := getRed(subgame)
+			red := getColourValue(subgame, "red")
 			if red > highestRed {
 				highestRed = red
 			}
-			green := getGreen(subgame)
+			green := getColourValue(subgame, "green")
 			if green > highestGreen {
 				highestGreen = green
 			}
-			blue := getBlue(subgame)
+			blue := getColourValue(subgame, "blue")
 			if blue > highestBlue {
 				highestBlue = blue
 			}
@@ -82,77 +82,27 @@ func main() {
 	fmt.Printf("Sum of all IDs is %d\n", idTotal)
 }
 
-func getRed(subGame string) int {
-	total := 0
+func getColourValue(subGame, colour string) int {
+	value := 0
 
-	// Get index of appearance of the word
-	redWordIndex := strings.Index(subGame, "red")
+	// Get index of appearance of the colour
+	colourIndex := strings.Index(subGame, colour)
 
 	// Extract the value
-	if redWordIndex > 0 {
-		redWordValue := string(subGame[redWordIndex-3]) + string(subGame[redWordIndex-2])
+	if colourIndex > 0 {
+		colourStringValue := string(subGame[colourIndex-3]) + string(subGame[colourIndex-2])
 
 		// Trim whitespace
-		redWordValue = strings.TrimSpace(redWordValue)
+		colourStringValue = strings.TrimSpace(colourStringValue)
 
 		// Cast to int
-		red, err := strconv.Atoi(redWordValue)
+		colourIntValue, err := strconv.Atoi(colourStringValue)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		total += red
+		value += colourIntValue
 	}
 
-	return total
-}
-
-func getGreen(subGame string) int {
-	total := 0
-
-	// Get index of appearance of the word
-	greenWordIndex := strings.Index(subGame, "green")
-
-	// Extract the value
-	if greenWordIndex > 0 {
-		greenWordValue := string(subGame[greenWordIndex-3]) + string(subGame[greenWordIndex-2])
-
-		// Trim whitespace
-		greenWordValue = strings.TrimSpace(greenWordValue)
-
-		// Cast to int
-		green, err := strconv.Atoi(greenWordValue)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		total += green
-	}
-
-	return total
-}
-
-func getBlue(subGame string) int {
-	total := 0
-
-	// Get index of appearance of the word
-	blueWordIndex := strings.Index(subGame, "blue")
-
-	// Extract the value
-	if blueWordIndex > 0 {
-		blueWordValue := string(subGame[blueWordIndex-3]) + string(subGame[blueWordIndex-2])
-
-		// Trim whitespace
-		blueWordValue = strings.TrimSpace(blueWordValue)
-
-		// Cast to int
-		blue, err := strconv.Atoi(blueWordValue)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		total += blue
-	}
-
-	return total
+	return value
 }
